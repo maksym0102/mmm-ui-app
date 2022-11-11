@@ -1,0 +1,28 @@
+package {{:package}}.block;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.GlassBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
+
+public class {{:data.registryName}}Block extends {{if data.renderType == "translucent"}}GlassBlock{{else}}Block{{/if}} {
+    public {{:data.registryName}}Block(Properties p_49795_) {
+        super(p_49795_);
+    }
+
+    @Override
+    public boolean onDestroyedByPlayer(BlockState state, Level level, BlockPos pos, Player player, boolean willHarvest, FluidState fluid) {
+        {{:data.nodeDictionary.onDestroyedByPlayer}}
+        return super.onDestroyedByPlayer(state, level, pos, player, willHarvest, fluid);
+    }
+
+    @Override
+    public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
+        {{:data.nodeDictionary.stepOn}}
+        super.stepOn(level, pos, state, entity);
+    }
+}

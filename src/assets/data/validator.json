@@ -1,0 +1,43 @@
+{
+  "items": [
+    {
+      "property": "inGameName",
+      "type": "String",
+      "required": true
+    },
+    {
+      "property": "creativeTab",
+      "type": "Number",
+      "required": true
+    }
+  ],
+  "blocks": [
+    {
+      "property": "inGameName",
+      "type": "String",
+      "required": true
+    }
+  ],
+  "tools": [
+    {
+      "property": "inGameName",
+      "type": "String",
+      "required": true
+    },
+    {
+      "property": "toolType",
+      "type": "String",
+      "required": true
+    },
+    {
+      "property": "tier",
+      "type": "String",
+      "required": true
+    },
+    {
+      "property": "creativeTab",
+      "type": "String",
+      "required": true
+    }
+  ]
+}

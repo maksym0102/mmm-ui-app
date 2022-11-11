@@ -1,0 +1,31 @@
+{{if data.blockType == "Cube"}}
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "{{:data.projectName}}:block/{{:data.registryName}}"
+    }
+}
+{{/if}}
+{{if data.blockType == "Cube C"}}
+{
+    "parent": "minecraft:block/cube_column",
+    "textures": {
+        "end": "{{:data.projectName}}:block/{{:data.cube1.name}}",
+        "side": "{{:data.projectName}}:block/{{:data.cube2.name}}"
+    }
+}
+{{/if}}
+{{if data.blockType == "Cube SS"}}
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "{{:data.projectName}}:block/{{:data.cube2.name}}",
+    "up": "{{:data.projectName}}:block/{{:data.cube1.name}}",
+    "north": "{{:data.projectName}}:block/{{:data.cube3.name}}",
+    "south": "{{:data.projectName}}:block/{{:data.cube4.name}}",
+    "west": "{{:data.projectName}}:block/{{:data.cube6.name}}",
+    "east": "{{:data.projectName}}:block/{{:data.cube5.name}}",
+    "particle": "{{:data.projectName}}:block/{{:data.cube2.name}}"
+  }
+}
+{{/if}}

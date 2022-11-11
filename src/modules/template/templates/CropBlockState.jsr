@@ -1,0 +1,5 @@
+{
+  "variants": {
+    {{:data.cropBlockState}}
+  }
+}

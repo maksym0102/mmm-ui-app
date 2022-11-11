@@ -1,0 +1,43 @@
+{{if data.recipeType == "Shaped Recipe"}}
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "{{if data.recipeItem1.name}}A{{else}} {{/if}}{{if data.recipeItem2.name}}B{{else}} {{/if}}{{if data.recipeItem3.name}}C{{else}} {{/if}}",
+    "{{if data.recipeItem4.name}}D{{else}} {{/if}}{{if data.recipeItem5.name}}E{{else}} {{/if}}{{if data.recipeItem6.name}}F{{else}} {{/if}}",
+    "{{if data.recipeItem7.name}}G{{else}} {{/if}}{{if data.recipeItem8.name}}H{{else}} {{/if}}{{if data.recipeItem9.name}}I{{else}} {{/if}}"
+  ],
+  "key": {
+    {{:data.shapedItemJson}}
+  },
+  "result": {
+    "item": "{{:data.resultItem.name}}",
+    "count": {{:data.resultCount}}
+  }
+}
+{{/if}}
+
+{{if data.recipeType == "Shapeless Recipe"}}
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {{:data.shapelessItemJson}}
+  ],
+  "result": {
+    "item": "{{:data.resultItemShapeless.name}}",
+    "count": {{:data.resultCountShapeless}}
+  }
+}
+{{/if}}
+
+
+{{if data.recipeType == "Furnace Recipe"}}
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "{{:data.furnaceItem.name}}"
+  },
+  "result": "{{:data.furnaceResult.name}}",
+  "experience": {{:data.experience}},
+  "cookingtime": {{:data.cookingTime}}
+}
+{{/if}}

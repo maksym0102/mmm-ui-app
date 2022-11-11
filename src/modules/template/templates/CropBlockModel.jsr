@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "{{:data.projectName}}:block/{{:data.stageTexture}}"
+  }
+}

@@ -1,0 +1,68 @@
+package {{:package}}.item;
+
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.level.Level;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.Block;
+
+{{for data.javaImports}}
+import {{:#data}};
+{{/for}}
+
+public class {{:data.registryName}}Item extends Item {
+
+    public {{:data.registryName}}Item(Properties pProperties) {
+        super(pProperties);
+    }
+
+    {{if data.nodeDictionary.onDroppedByPlayer}}
+        @Override
+        public boolean onDroppedByPlayer(ItemStack item, Player player) {
+            {{:data.nodeDictionary.onDroppedByPlayer}}
+            return super.onDroppedByPlayer(item, player);
+        }
+    {{/if}}
+
+    {{if data.nodeDictionary.hurtEnemy}}
+        @Override
+        public boolean hurtEnemy(ItemStack pStack, LivingEntity pTarget, LivingEntity pAttacker) {
+            {{:data.nodeDictionary.hurtEnemy}}
+            return super.hurtEnemy(pStack, pTarget, pAttacker);
+        }
+    {{/if}}
+
+    {{if data.nodeDictionary.useOn}}
+        @Override
+        public InteractionResult useOn(UseOnContext pContext) {
+            BlockPos pos = pContext.getClickedPos();
+            Integer x = pos.getX();
+            Integer y = pos.getY();
+            Integer z = pos.getZ();
+            Entity player = pContext.getPlayer();
+            Level level = pContext.getLevel();
+            Block block = level.getBlockState(pos).getBlock();
+            if (!pContext.getLevel().isClientSide()) {
+                {{:data.nodeDictionary.useOn}}
+            }
+            return super.useOn(pContext);
+        }
+    {{/if}}
+
+    {{if data.nodeDictionary.onCraftedBy}}
+        @Override
+        public void onCraftedBy(ItemStack item, Level level, Player player) {
+            if (!level.isClientSide()) {
+                {{:data.nodeDictionary.onCraftedBy}}
+            }
+            super.onCraftedBy(item, level, player);
+        }
+    {{/if}}
+}

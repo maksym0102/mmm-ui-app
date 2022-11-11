@@ -1,0 +1,20 @@
+key,value
+ItemForm.InGameName,This is the Game Name.
+ItemForm.CreativeTab,This is the creative tab which this item will be placed under.
+ItemForm.StackSize,This is the Stack Size Slider.
+ItemForm.Nutrition,This is the Nutrition Slider.
+ItemForm.Saturation,This is the Saturation Slider.
+BlockForm.InGameName,This is the Game Name.
+BlockForm.Material,This is the material which this item will be placed under.
+BlockForm.Hardness,This is the Hardness Slider.
+BlockForm.ExplosionResistance,This is the Explosion Resistance Slider.
+BlockForm.JumpFactor,This is the Jump Factor Slider.
+BlockForm.Friction,This is the Friction Slider.
+BlockForm.SpeedFactor,This is the Speed Factor Slider.
+ArmorForm.HelmetItemTexture,Helmet item texture.
+ArmorForm.ChestplateItemTexture,Chestplate item texture.
+ArmorForm.LeggingItemTexture,Legging item texture.
+ArmorForm.BootItemTexture,Boot item texture.
+ArmorForm.Layer1Texture,Layer 1 texture.
+ArmorForm.Layer2Texture,Layer 2 texture.
+ArmorForm.RepairItem,Repair Item.

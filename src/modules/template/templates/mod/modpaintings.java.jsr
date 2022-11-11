@@ -1,0 +1,29 @@
+package {{:package}}.painting;
+
+import {{:package}}.GeneratedMod;
+import net.minecraft.world.entity.decoration.Motive;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Hashtable;
+
+public class ModPaintings {
+    public static final DeferredRegister<Motive> PAINTINGS = DeferredRegister.create(ForgeRegistries.PAINTING_TYPES, {{:modclass}}.MOD_ID);
+
+    public static final Hashtable<String, RegistryObject<Motive>> MAP = new Hashtable<>();
+
+    public static void registerPaintings() {
+        {{for projectdata.paintings}}
+            MAP.put("{{:data.registryName}}", PAINTINGS.register("{{:data.registryName}}", () -> new Motive({{:data.width}}, {{:data.height}})));
+        {{/for}}
+    }
+
+    //public static RegistryObject<Motive> MONET = ;
+
+    public static void register(IEventBus eventBus) {
+        registerPaintings();
+        PAINTINGS.register(eventBus);
+    }
+}

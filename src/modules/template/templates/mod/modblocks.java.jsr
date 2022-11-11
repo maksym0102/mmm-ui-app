@@ -1,0 +1,66 @@
+package {{:package}}.block;
+
+import {{:package}}.GeneratedMod;
+import {{:package}}.item.ModItems;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Material;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.function.Supplier;
+import java.util.Hashtable;
+
+public class ModBlocks {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, {{:modclass}}.MOD_ID);
+    public static final Hashtable<String, RegistryObject<Block>> MAP = new Hashtable<>();
+
+    /**
+     * Register the associated item for a block
+     */
+    private static <T extends Block>RegistryObject<Item> registerBlockItem(String name, RegistryObject<T> block, CreativeModeTab tab) {
+        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
+    }
+
+    private static <T extends Block>RegistryObject<T> registerBlock(String name, Supplier<T> block, CreativeModeTab tab) {
+        RegistryObject<T> returnBlock = BLOCKS.register(name, block);
+        registerBlockItem(name, returnBlock, tab);
+        return returnBlock;
+    }
+
+    public static void register(IEventBus eventBus) {
+        {{for projectdata.blocks}}
+            MAP.put("{{:data.registryName}}", registerBlock("{{:data.registryName}}",
+                        () -> new {{:data.registryName}}Block(BlockBehaviour.Properties.of(Material.{{:data.material}}).sound(SoundType.{{:data.sound}}).strength({{:data.hardness}}F, {{:data.resistance}}F)
+                        .jumpFactor({{:data.jumpFactor}}F).friction({{:data.friction}}F).speedFactor({{:data.speedFactor}}F)
+                        {{if !data.hasCollision}}
+                            .noCollission()
+                        {{/if}}
+                        {{if data.requiresCorrectToolForDrop}}
+                            .requiresCorrectToolForDrops()
+                        {{/if}}
+                        {{if data.renderType === "translucent"}}
+                            .noOcclusion()
+                        {{/if}}
+                        ), CreativeModeTab.TAB_MISC)
+                    );
+        {{/for}}
+        {{for projectdata.crops}}
+            MAP.put("{{:data.registryName}}", registerBlockWithoutBlockItem("{{:data.registryName}}",
+            () -> new {{:data.registryName}}CropBlock(BlockBehaviour.Properties.copy(Blocks.WHEAT).noOcclusion())));
+        {{/for}}
+
+        BLOCKS.register(eventBus);
+    }
+
+    private static <T extends Block> RegistryObject<T> registerBlockWithoutBlockItem(String name, Supplier<T> block) {
+        return BLOCKS.register(name, block);
+    }
+}

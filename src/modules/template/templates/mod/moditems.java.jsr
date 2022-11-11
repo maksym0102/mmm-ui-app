@@ -1,0 +1,59 @@
+package {{:package}}.item;
+
+import {{:package}}.{{:modclass}};
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.*;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Hashtable;
+
+public class ModItems {
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, {{:modclass}}.MOD_ID);
+
+    public static final Hashtable<String, RegistryObject<Item>> MAP = new Hashtable<>();
+
+    public static void registerItems() {
+        {{for projectdata.items}}
+            MAP.put("{{:data.registryName}}", ITEMS.register("{{:data.registryName}}",
+                () -> new {{:data.registryName}}Item(new Item.Properties().tab(CreativeModeTab.{{:data.creativeTab}})
+                    {{if data.isFood}}
+                        .food(
+                            new FoodProperties.Builder().nutrition({{:data.nutrition}}).saturationMod({{:data.saturation}}F)
+                            {{if data.effects}}
+                                {{for data.effects}}
+                                    .effect(() -> new MobEffectInstance(MobEffects.{{:name}}, {{:duration}}, {{:amplifier}}), {{:probability}}F)
+                                {{/for}}
+                            {{/if}}
+                            .build()
+                        )
+                    {{/if}}
+                    )));
+        {{/for}}
+        {{for projectdata.tools}}
+            MAP.put("{{:data.registryName}}", ITEMS.register("{{:data.registryName}}",
+                () -> new {{:data.toolType}}Item(Tiers.{{:data.tier}}, {{:data.attackBonus}}, {{:data.speedBonus}}f, new Item.Properties().tab(CreativeModeTab.{{:data.creativeTab.entry}}))));
+        {{/for}}
+        {{for projectdata.armor}}
+            MAP.put("{{:data.registryName}}_helmet", ITEMS.register("{{:data.registryName}}_helmet",
+                () -> new ArmorItem(ModArmorMaterials.{{:data.registryName}}, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))));
+            MAP.put("{{:data.registryName}}_chestplate", ITEMS.register("{{:data.registryName}}_chestplate",
+                () -> new ArmorItem(ModArmorMaterials.{{:data.registryName}}, EquipmentSlot.CHEST, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))));
+            MAP.put("{{:data.registryName}}_leggings", ITEMS.register("{{:data.registryName}}_leggings",
+                () -> new ArmorItem(ModArmorMaterials.{{:data.registryName}}, EquipmentSlot.LEGS, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))));
+            MAP.put("{{:data.registryName}}_boots", ITEMS.register("{{:data.registryName}}_boots",
+                () -> new ArmorItem(ModArmorMaterials.{{:data.registryName}}, EquipmentSlot.FEET, new Item.Properties().tab(CreativeModeTab.TAB_COMBAT))));
+        {{/for}}
+    }
+
+    public static void register(IEventBus eventBus) {
+        ITEMS.register(eventBus);
+    }
+}

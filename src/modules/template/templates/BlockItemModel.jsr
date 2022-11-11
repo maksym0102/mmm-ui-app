@@ -1,0 +1,3 @@
+{
+  "parent": "{{:data.projectName}}:block/{{:data.registryName}}"
+}
